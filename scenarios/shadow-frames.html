@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en-US" class="default">
+
+	<head>
+		<meta charset="utf-8">
+		<iframe title="IFRAME1" src="https://cnn.com/" id="iframe1"> 
+			<div>This is the first iframe (inside head)</div>
+		</iframe>
+		<iframe title="IFRAME2" src="https://nytimes.com/" id="iframe2">
+			<div>This is the second iframe (inside head)</div>
+			<iframe title="IFRAME3" src="https://tmz.com/" id="iframe3">
+				<div>This is the third iframe (inside second iframe)</div>
+			</iframe>
+		</iframe>
+	</head>
+	
+	<body>
+
+		<iframe title="IFRAME4" src="https://toi.com/" id="iframe4"> 
+			<div>This is the fourth iframe (inside body)</div>
+		</iframe>
+		<iframe title="IFRAME5" src="https://forbes.com/" id="iframe5">
+			<div>This is the fifth iframe (inside body)</div>
+			<iframe title="IFRAME6" src="https://verge.com/" id="iframe6">
+				<div>This is the sixth iframe (inside fifth iframe)</div>
+				<iframe title="IFRAME7" src="https://bbc.com/" id="iframe7">
+					<div>This is the seven iframe (inside sixth iframe)</div>
+				</iframe>
+			</iframe>
+		</iframe>
+
+		<div>This is the separation</div>
+
+		<script type="text/javascript" src="inject-body.js"></script>
+
+		<iframe title="IFRAME8" src="https://forbes.com/" id="iframe8">
+			<div>This is the eighth iframe (inside body)</div>		
+			<script type="text/javascript" src="inject-iframe.js"></script>
+			<iframe title="IFRAME9" src="https://bbc.com/" id="iframe9">
+				<div>This is the ninth iframe (inside eighth iframe)</div>
+				<script type="text/javascript" src="inject-iframe.js"></script>
+			</iframe>
+		</iframe>
+		
+	</body>
+
+</html>
