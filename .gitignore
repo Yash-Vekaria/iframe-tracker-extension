@@ -6,3 +6,7 @@ node_modules/
 
 # Ignore SQLite database file
 data.db
+
+# Ignore Input and Output files and directories
+output/
+websites.csv
