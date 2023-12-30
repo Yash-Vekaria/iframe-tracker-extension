@@ -5,6 +5,7 @@ import shutil
 import random
 import argparse
 import selenium
+import subprocess
 from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
@@ -28,7 +29,8 @@ def parse_arguments():
 # Start the localhost server
 def start_server():
     os.chdir('./server')
-    os.system('node server.js &')
+    # os.system('node server.js &')
+    subprocess.Popen(['node', 'server.js'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE, close_fds=True)
     os.chdir('..')
 
 
@@ -59,6 +61,7 @@ def create_webdriver():
     try:
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     except BaseException as error:
+        print(str(error))
         driver = None
     return driver
 
@@ -67,23 +70,15 @@ def create_webdriver():
 def perform_bot_mitigation(driver):
     
     # Bot mitigation 1: Move mouse randomly around a number of times
-    try:
-        window_size = driver.get_window_size()
-    except:
-        pass
-    
+    print("Performing Bot Mitigation 1")
     RANDOM_SLEEP_LOW, RANDOM_SLEEP_HIGH, NUM_MOUSE_MOVES = 1, 8, 10
     num_moves, num_fails = 0, 0
     
     while num_moves < NUM_MOUSE_MOVES + 1 and num_fails < NUM_MOUSE_MOVES:
         try:
-            if num_moves == 0:  # move to the center of the screen
-                x = int(round(window_size["height"] / 2))
-                y = int(round(window_size["width"] / 2))
-            else:  # move a random amount in some direction
-                move_max = random.randint(0, 350)
-                x = random.randint(-move_max, move_max)
-                y = random.randint(-move_max, move_max)
+            move_max = random.randint(0, 350)
+            x = random.randint(-move_max, move_max)
+            y = random.randint(-move_max, move_max)
             action = ActionChains(driver)
             action.move_by_offset(x, y)
             action.perform()
@@ -94,10 +89,12 @@ def perform_bot_mitigation(driver):
             pass
 
     # Bot mitigation 2: Scroll smoothly in random intervals down the page and then back to the top
+    print("Performing Bot Mitigation 2")
     SCROLL_MAX = 50
     try:
         scroll_count = 0
-        for i in range(1, page_height, 10):
+        page_height = int(driver.execute_script('return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );'))
+        for i in range(1, page_height, 250):
             scroll_count += 1
             if scroll_count > SCROLL_MAX:
                 break;
@@ -113,7 +110,8 @@ def perform_bot_mitigation(driver):
 
     try:
         scroll_count = 0
-        for i in range(page_height, 0, -10):
+        page_height = int(driver.execute_script('return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );'))
+        for i in range(page_height, 0, -250):
             scroll_count += 1
             if scroll_count > SCROLL_MAX:
                 break;
@@ -128,6 +126,7 @@ def perform_bot_mitigation(driver):
     time.sleep(10)  # Wait at the top
 
     # Bot mitigation 3: Randomly wait so page visits happen with irregularity between consectutive websites
+    print("Performing Bot Mitigation 3")
     time.sleep(random.randrange(RANDOM_SLEEP_LOW, RANDOM_SLEEP_HIGH))
     
     return
@@ -137,14 +136,19 @@ def perform_bot_mitigation(driver):
 def crawl_websites(websites):
     for website in websites:
 
+        print(f"\n\nCrawling {website} ...")
+
         # Start the localhost server
         start_server()
+        print("Started the server!")
 
         # Create chrome webdriver object and load the extension
         driver = create_webdriver()
+        print("Driver loaded!")
 
         # Get the website
         driver.get(website)
+        print("Website fetched!")
 
         # Perform bot mitigation techniques
         perform_bot_mitigation(driver)
@@ -154,6 +158,7 @@ def crawl_websites(websites):
 
         # Stop the localhost server
         stop_server()
+        print("Stopped the server!")
 
         # Move and rename data.db
         move_and_rename_db(website)
@@ -163,6 +168,8 @@ def crawl_websites(websites):
 def move_and_rename_db(website_url):
     website_name = website_url.replace('http://', '').replace('https://', '').split('/')[0].replace('.', '_')
     source_path = os.path.abspath('./server/data.db')
+    if not(os.path.exists("./output")):
+        os.makedirs("./output")
     destination_path = os.path.abspath(f'./output/{website_name}.db')
     shutil.move(source_path, destination_path)
 
