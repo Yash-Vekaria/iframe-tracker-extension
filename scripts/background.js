@@ -1,4 +1,6 @@
 // Background script
+
+// Install extension
 chrome.runtime.onInstalled.addListener(function() {
     console.log("Iframe Tracker Extension installed");
 });
@@ -6,9 +8,24 @@ chrome.runtime.onInstalled.addListener(function() {
 
 
 // Adding chrome.runtime.onMessage.addListener()
-chrome.runtime.onMessage.addListener(function(iframeDetails) {
-    console.log("Message received in background script:", iframeDetails);
+chrome.runtime.onMessage.addListener(function(details, sender, sendResponse) {
+    if (details.messageType == "iframe") {
+        var iframeDetails = details;
+        console.log("Message received in background script:", iframeDetails);
+    }
+    else if (details.messageType == "postMessage") {
+        var messageDetails = details;
+        console.log('Post message from content script:', messageDetails);
+    }
+    if (details.messageType == "iframe" || details.messageType == "postMessage") {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:3000/storeData", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhr.send(JSON.stringify(details));
+    }
 });
+
 
 
 
