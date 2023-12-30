@@ -1,5 +1,5 @@
 # iframe-tracker-extension
-Chrome extension to track static and dynamic iframe creations
+Chrome extension to track static and dynamic iframe creations and sniffing on exchanged postMessages() between them.
 
 ## Running the Server
 1. Install node.js
