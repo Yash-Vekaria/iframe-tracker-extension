@@ -13,3 +13,7 @@ Chrome extension to track static and dynamic iframe creations and sniffing on ex
 2. Toggle Developer Mode ```On```.
 3. Click on ```Load Unpacked``` and select ```/extension``` directory to load the extension.
 4. Visit any website to capture data at ```/server/data.db```.
+
+## Programmatic Crawling
+To perform the above steps programmatically for a batch of websites:
+Run: ```python3 crawl.py --path="websites.csv"``` where ```websites.csv``` can be replaced by path to the ```.csv``` file containing list of websites (Expected header: ```websites```).
