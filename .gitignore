@@ -1,0 +1,8 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Node.js modules
+node_modules/
+
+# Ignore SQLite database file
+data.db
