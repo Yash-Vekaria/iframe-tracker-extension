@@ -10,6 +10,6 @@ Chrome extension to track static and dynamic iframe creations
 
 ## Load the Extension
 1. Open ```chrome://extensions/``` in Chrome browser.
-2. Toggle Developer Mode ```On``.
+2. Toggle Developer Mode ```On```.
 3. Click on ```Load Unpacked``` and select ```/extension``` directory to load the extension.
 4. Visit any website to capture data at ```/server/data.db```.
