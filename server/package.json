@@ -1,0 +1,17 @@
+{
+    "name": "localhost-server",
+    "version": "1.0.0",
+    "description": "Server to handle data sent from iframe-tracker-extension",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "author": "Yash Vekaria",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "sqlite3": "^5.1.6"
+    }
+}
