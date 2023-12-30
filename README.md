@@ -15,5 +15,4 @@ Chrome extension to track static and dynamic iframe creations and sniffing on ex
 4. Visit any website to capture data at ```/server/data.db```.
 
 ## Programmatic Crawling
-To perform the above steps programmatically for a batch of websites:
-Run: ```python3 crawl.py --path="websites.csv"``` where ```websites.csv``` can be replaced by path to the ```.csv``` file containing list of websites (Expected header: ```websites```).
+To perform the above steps programmatically for a batch of websites, run: ```python3 crawl.py --path="websites.csv"``` where ```websites.csv``` can be replaced by path to the ```.csv``` file containing list of websites (Expected header: ```websites```).
