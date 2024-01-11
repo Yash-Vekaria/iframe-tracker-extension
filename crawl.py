@@ -15,13 +15,24 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 
+DOCKER = True
+if DOCKER:
+    from pyvirtualdisplay import Display
+    disp = Display(backend="xvnc", size=(1920,1080), rfbport=1012) # 1212 has to be a random port number
+    disp.start()
+
 ROOT_DIRECTORY = os.getcwd()
 
 # Input CLI args
 def parse_arguments():
+    global DOCKER;
+
     # Example: python3 crawl.py --path="websites.csv"
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", type=str, required=True, help="Enter path of the .csv file containing websites to crawl. Expected header: websites")
+    if DOCKER:
+        # Example: docker run -d -e PYTHONUNBUFFERED=1 -v $(pwd):/root -p 20000:1212 --shm-size=2g ad-crawler python3.11 ad-crawler.py -p "websites.csv" -mp "/root"
+        parser.add_argument("-mp", "--mountpath", type=str, required=False, help="Mounted path from docker run command")
     args = parser.parse_args()
     return args
 
@@ -193,4 +204,6 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_arguments()
+    if DOCKER:
+        ROOT_DIRECTORY = args.mountpath;
     main(args)

@@ -9,4 +9,4 @@ data.db
 
 # Ignore Input and Output files and directories
 output/
-websites.csv
+# websites.csv
