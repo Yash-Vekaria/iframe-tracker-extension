@@ -19,8 +19,6 @@ ROOT_DIRECTORY = os.getcwd()
 
 # Input CLI args
 def parse_arguments():
-    global DOCKER;
-
     # Example: python3 crawl.py --path="websites.csv"
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", type=str, required=True, help="Enter path of the .csv file containing websites to crawl. Expected header: websites")
