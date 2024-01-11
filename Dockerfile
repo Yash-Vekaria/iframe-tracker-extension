@@ -35,6 +35,7 @@ RUN npm install
 
 # Copying required items
 COPY crawl.py /crawler/crawl.py
+COPY websites.csv /crawler/websites.csv
 COPY extension /crawler/extension/
 
 
