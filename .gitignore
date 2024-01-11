@@ -9,4 +9,5 @@ data.db
 
 # Ignore Input and Output files and directories
 output/
+archive/
 # websites.csv
