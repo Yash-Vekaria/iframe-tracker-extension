@@ -30,9 +30,9 @@ To crawl using dockers, build the provided docker image and run the docker as fo
 2. Follow the [manual installation method](https://docs.docker.com/engine/install/ubuntu/#install-from-a-package) or any other method from the above page to install docker on your local system.
 3. Ensure ```DOCKER``` is set to ```True``` in the crawl.py file.
 4. Build the docker using the command:<br>
-   `docker build -t <docker-image>`<br>
+   `docker build -t <docker-image> .`<br>
    Example:<br>
-   `docker build -t iframe-crawler`
+   `docker build -t iframe-crawler .`
 5. Run the docker container:<br>
    ```
    docker run -d -e PYTHONUNBUFFERED=1 -v <crawler-dir>:/root -p <random-unused-port>:<rfbport> --shm-size=2g <docker-image> python3.11 crawl.py -p "<path-to-websites.csv>" -mp "/root"
