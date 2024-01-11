@@ -29,6 +29,7 @@ COPY server /crawler/server
 
 # Install npm packages
 WORKDIR /crawler/server
+RUN apt install -y nodejs npm
 RUN npm install
 
 
