@@ -39,7 +39,7 @@ To crawl using dockers, build the provided docker image and run the docker as fo
    ```
    Example:<br>
    ```
-   docker run -d -e PYTHONUNBUFFERED=1 -v $(pwd):/root -p 20000:1012 --shm-size=2g ad-crawler python3.11 ad-crawler.py -p "websites.csv" -mp "/root"
+   docker run -d -e PYTHONUNBUFFERED=1 -v $(pwd):/root -p 20000:1012 --shm-size=2g iframe-crawler python3.11 crawl.py -p "websites.csv" -mp "/root"
    ```
    Here, `rfbport` is also a random available port whose value should match the value used in `crawl.py`.
 6. The flag `-d` in point 5. enables docker container to run in a detached mode from the terminal. To prevent that remove `-d`.

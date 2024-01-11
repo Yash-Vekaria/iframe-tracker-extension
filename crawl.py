@@ -31,7 +31,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", type=str, required=True, help="Enter path of the .csv file containing websites to crawl. Expected header: websites")
     if DOCKER:
-        # Example: docker run -d -e PYTHONUNBUFFERED=1 -v $(pwd):/root -p 20000:1212 --shm-size=2g ad-crawler python3.11 ad-crawler.py -p "websites.csv" -mp "/root"
+        # Example: docker run -d -e PYTHONUNBUFFERED=1 -v $(pwd):/root -p 20000:1012 --shm-size=2g iframe-crawler python3.11 crawl.py -p "websites.csv" -mp "/root"
         parser.add_argument("-mp", "--mountpath", type=str, required=False, help="Mounted path from docker run command")
     args = parser.parse_args()
     return args
