@@ -37,6 +37,7 @@ RUN npm install
 COPY crawl.py /crawler/crawl.py
 COPY websites.csv /crawler/websites.csv
 COPY extension /crawler/extension/
+COPY output /crawler/output/
 
 
 # Move back to the root directory
