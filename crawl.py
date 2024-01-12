@@ -136,7 +136,8 @@ def perform_bot_mitigation(driver):
 def crawl_websites(websites):
     for website in websites:
 
-        print(f"\n\nCrawling {website} ...")
+        ind = websites.index(website)
+        print(f"\n\n{ind}. Crawling {website} ...")
 
         # Start the localhost server
         start_server()
